@@ -1,86 +1,85 @@
-<strong>LUCID:</strong><br />
-In this repository, we provide an implementation for the paper "Guarding the Privacy of Label-Only Access to Neural Network Classifiers via iDP Verification
-" <a href="https://arxiv.org/abs/2502.16519">LUCID's paper</a>. The repository owner is anan.kabaha@campus.technion.ac.il. 
+# **LUCID**
 
-<strong>Prerequisites:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
-  Julia Version 1.11.3
-  Gurobi 10.0 or 11.0 or 12.0 
-  Python 3.8.10 
-  Torch 2.4.1
-</pre>
-</div>
+In this repository, we provide an implementation for the paper  
+["Guarding the Privacy of Label-Only Access to Neural Network Classifiers via iDP Verification"](https://arxiv.org/abs/2502.16519).  
+The repository owner is `anan.kabaha@campus.technion.ac.il`.
 
-<strong>Clone LUCID:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
-  https://github.com/ananmkabaha/LUCID.git
-  cd to LUCID
-  
-</pre>
-</div>
+## **Prerequisites**
 
-<strong>Training parameters:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
---workers: number of workers to train in parallel.<br />
---model_arch: the model's architecture 2x50, 2x100, 4x30, or CNN.<br />
---dataset: the dataset: adult, credit, crypto, or twitter.<br />
---devices: devices to train with, for example cpu or cuda:0 or cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7. <br />
---output_dir: output directory to save the models.<br />
---seed: random seed for example 42 or 666.<br />
---epochs: number of training epochs.<br />
---batch_size: the training batch size.<br />
-</pre>
-</div>
-<strong>Training examples:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
-  python3 train_parallel.py --dataset adult --model_arch 2x50 --workers 224 --batch_size 1024 --devices cpu --output_dir ./model/ 
-  python3 train_parallel.py --dataset crypto --model_arch CNN --workers 100 --batch_size 100 --devices cpu --output_dir ./model/ </pre>
-</div>
+```
+Julia Version 1.11.3  
+Gurobi 10.0 or 11.0 or 12.0  
+Python 3.8.10  
+Torch 2.4.1
+```
 
-<strong>Computing the iDP-DB bounds:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
---dataset: the dataset: adult, credit, crypto, or twitter.<br />
---model_arch: the model's architecture: 2x50, 2x100, 4x30, or CNN.<br />
---models_path: path of the trained models.<br />
---worker_timeout: worker timeout. <br />
---timeout: the total timeout.<br />
---workers_num: number of workers to obtain the iDP-DB.<br />
---tmp_path: directory to save temporary files.<br />
---s: source class.<br />
---t: target class.<br />
---seed: random seed.<br />
-</pre>
-</div>
-<strong>Computing the iDP-DB bounds examples:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
-  python3 Compute_iDP-DB.py --s 1 --t 2 --workers_num 32 --dataset adult --model_arch 2x50 --models_path ./model/ --worker_timeout 2400 --timeout 28800
-  python3 Compute_iDP-DB.py --s 1 --t 2 --workers_num 32 --dataset crypto --model_arch CNN --models_path ./model/ --worker_timeout 2400 --timeout 28800
-</div>
+## **Clone LUCID**
 
-<strong>LUCID inference (iDP protected):</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
---model_path: The path of the model that was trained over the whole dataset.<br />
---model_arch: the model's architecture: 2x50, 2x100, 4x30, or CNN.<br />
---dataset: the dataset: adult, credit, crypto, or twitter.<br />
---bounds: the iDP-DBs. <br />
---eps: the privacy budget.<br />
---device: The device to run the inference, for example cpu.<br />
---seed: random seed.<br />
-</pre>
-</div>
-<strong> LUCID inference examples:</strong><br />
-<div style="background-color: #f2f2f2; padding: 1px;">
-  <pre style="font-family: 'Courier New', monospace; font-size: 14px;">
-  python3 LUCID_inference.py --dataset adult --bounds 0.54,0.5 --eps 1 --model_arch 2x50 --model_path ./model/adult.pth
-  python3 LUCID_inference.py --dataset crypto --bounds 0.36,0.12 --eps 1 --model_arch CNN --model_path ./model/crypto.pth
-</div>
+```bash
+git clone https://github.com/ananmkabaha/LUCID.git
+cd LUCID
+```
 
+## **Training parameters**
 
+```
+--workers       Number of workers to train in parallel  
+--model_arch    The model's architecture: 2x50, 2x100, 4x30, or CNN  
+--dataset       The dataset: adult, credit, crypto, or twitter  
+--devices       Devices to train with, e.g., cpu or cuda:0,cuda:1,...  
+--output_dir    Output directory to save the models  
+--seed          Random seed (e.g., 42 or 666)  
+--epochs        Number of training epochs  
+--batch_size    Training batch size
+```
 
+## **Training examples**
+
+```bash
+python3 train_parallel.py --dataset adult --model_arch 2x50 --workers 224 --batch_size 1024 --devices cpu --output_dir ./model/
+
+python3 train_parallel.py --dataset crypto --model_arch CNN --workers 100 --batch_size 100 --devices cpu --output_dir ./model/
+```
+
+## **Computing the iDP-DB bounds**
+
+```
+--dataset         Dataset: adult, credit, crypto, or twitter  
+--model_arch      Model architecture: 2x50, 2x100, 4x30, or CNN  
+--models_path     Path of the trained models  
+--worker_timeout  Timeout per worker  
+--timeout         Total timeout  
+--workers_num     Number of workers to compute iDP-DB  
+--tmp_path        Directory to save temporary files  
+--s               Source class  
+--t               Target class  
+--seed            Random seed
+```
+
+### **Examples**
+
+```bash
+python3 Compute_iDP-DB.py --s 1 --t 2 --workers_num 32 --dataset adult --model_arch 2x50 --models_path ./model/ --worker_timeout 2400 --timeout 28800
+
+python3 Compute_iDP-DB.py --s 1 --t 2 --workers_num 32 --dataset crypto --model_arch CNN --models_path ./model/ --worker_timeout 2400 --timeout 28800
+```
+
+## **LUCID Inference (iDP protected)**
+
+```
+--model_path   Path of the model trained on the full dataset  
+--model_arch   Model architecture: 2x50, 2x100, 4x30, or CNN  
+--dataset      Dataset: adult, credit, crypto, or twitter  
+--bounds       iDP-DB bounds  
+--eps          Privacy budget  
+--device       Device to run inference on, e.g., cpu  
+--seed         Random seed
+```
+
+### **Examples**
+
+```bash
+python3 LUCID_inference.py --dataset adult --bounds 0.54,0.5 --eps 1 --model_arch 2x50 --model_path ./model/adult.pth
+
+python3 LUCID_inference.py --dataset crypto --bounds 0.36,0.12 --eps 1 --model_arch CNN --model_path ./model/crypto.pth
+```
