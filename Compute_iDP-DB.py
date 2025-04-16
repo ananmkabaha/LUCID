@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument('--models_path', type=str, default="./model/", help='path of the models')
     parser.add_argument('--worker_timeout', type=int, default=2400, help='worker timeout')
     parser.add_argument('--timeout', type=int, default=8*3600, help='total timeout')
-    parser.add_argument('--workers_num', type=int, default=64, help='number of workers to obrain the iDP-DB')
+    parser.add_argument('--workers_num', type=int, default=64, help='number of workers to obtain the iDP-DB')
     parser.add_argument('--tmp_path', type=str, default="/tmp/", help='directory for temporary files')
     parser.add_argument('--s', type=int, default=2, help='source class')
     parser.add_argument('--t', type=int, default=1, help='target class')
