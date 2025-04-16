@@ -8,7 +8,7 @@ The repository owner is `anan.kabaha@campus.technion.ac.il`.
 
 ```
 Julia Version 1.11.3  
-Gurobi 10.0 or 11.0 or 12.0  
+Gurobi 12.0  
 Python 3.8.10  
 Torch 2.4.1
 ```
