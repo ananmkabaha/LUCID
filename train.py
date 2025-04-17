@@ -67,10 +67,12 @@ def train(index_to_remove, dataset, model_arch, seed, output_dir, device='cpu', 
     model = load_model(model_arch, dim)
     model = model.to(device)
 
-    if index_to_remove >= 0:
+    if index_to_remove >= len(train_set):
+        return
+    elif index_to_remove >= 0:
         x, _ = train_set[index_to_remove]
         train_set[index_to_remove] = (x, torch.tensor(-1, dtype=torch.int64))
-
+    
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False)
 
