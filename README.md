@@ -79,7 +79,7 @@ python3 Compute_iDP-DB.py --s 1 --t 2 --workers_num 32 --dataset crypto --model_
 ### **Examples**
 
 ```bash
-python3 LUCID_inference.py --dataset adult --bounds 0.54,0.5 --eps 1 --model_arch 2x50 --model_path ./model/adult.pth
+python3 LUCID_inference.py --dataset adult --bounds 0.15,0.17 --eps 1 --model_arch 2x50 --model_path ./model/adult.pth
 
-python3 LUCID_inference.py --dataset crypto --bounds 0.36,0.12 --eps 1 --model_arch CNN --model_path ./model/crypto.pth
+python3 LUCID_inference.py --dataset crypto --bounds 0.85,1.30 --eps 1 --model_arch CNN --model_path ./model/crypto.pth
 ```
